@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Rigidbody2D rb;
     private Vector3 velocity = Vector3.zero;
+    public SpriteRenderer spriteRenderer;
 
     void FixedUpdate()
     {
@@ -26,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
         float horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
 
         MovePlayer(horizontalMovement);
+
+        Flip(rb.velocity.x);
     }
 
     void Update()
@@ -44,6 +47,17 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(new Vector2(0f, jumpForce));
             isJumping = false;
+        }
+    }
+
+    void Flip(float _velocity)
+    {
+        if(_velocity > 0.1f)
+        {
+            spriteRenderer.flipX = false;
+        } else if(_velocity < -0.1f)
+        {
+            spriteRenderer.flipX = true;
         }
     }
 }
