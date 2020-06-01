@@ -19,6 +19,17 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     private Vector3 velocity = Vector3.zero;
     public SpriteRenderer spriteRenderer;
+    public static PlayerMovement instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            return;
+        }
+
+        instance = this;
+    }
 
     void FixedUpdate()
     {

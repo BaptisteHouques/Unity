@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Diagnostics;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -33,10 +34,23 @@ public class PlayerHealth : MonoBehaviour
         {
             currentHealth -= damage;
             healthBar.SetHealth(currentHealth);
+
+            if(currentHealth <= 0)
+            {
+                Die();
+                return;
+            }
+
             isInvinsible = true;
             StartCoroutine(InvincibilityFlash());
             StartCoroutine(HandleInvinsibilityDelay());
         }
+    }
+
+    public void Die()
+    {
+        PlayerMovement.instance.enabled = false;
+        graphics.color = new Color(1f, 1f, 1f, 0f);
     }
     //Coroutine
     public IEnumerator InvincibilityFlash()
